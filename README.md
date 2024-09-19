@@ -75,7 +75,15 @@
 
 ### read
 
+```sql
+desc select * from tableName --查询语句执行详细过程
+```
+
 ### update
+```sql
+insert into tableName(colum1,colum2,colum3) values ('001','002','005'); --指定列插入
+insert into tableName values('1','12','15','26'); --插入所有列
+```
 
 ### delete
 
@@ -83,8 +91,34 @@
 
 ## 索引
 
-## 事务transaction、锁lock
+```sql
+alter table tableName add index indexName(columName) --增加默认索引
+alter table tableName add index unique indexName(columName) --增加唯一索引，主键就是唯一索引
+alter table tableName drop index indexName
+show index from tableName \G
+```
 
+
+## 事务transaction
+
+```sql
+begin 开启事务
+rollback 回滚事务
+commit  提交事务
+```
+
+
+## 锁lock
+锁分为表级别锁，行级别锁。指在执行某个读写操作时，将表锁定，防止其他进程修改表，或读取表。
+- 读锁状态，可以并发读取，但不能写入，直到释放锁。
+- 写锁状态，只有锁表的用户可以读写操作，其他用户都不行。（抢购唯一商品场景）
+```sql
+lock table tableName read -- 读取锁，只能读，解锁之前无法对标进行写操作
+unlock tables -- 解除锁
+
+lock table tableName write --写锁，只锁表用户读写，解锁之前其他用户无法读写操作。
+unlock tables -- 解除锁
+```
 
 
 
